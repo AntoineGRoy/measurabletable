@@ -49,6 +49,7 @@ const ages = [
   { id: "123", age: 105 },
   { id: "1003", age: 204 },
 ];
+const tableHead = new Set();
 
 function merger(arr1, arr2) {
   //gathering properties names while iterating through the input to fill the table head;
@@ -64,7 +65,7 @@ function merger(arr1, arr2) {
     if (!arr1[indexArr1] || !arr2[indexArr2]) {
       console.log("EMPTY");
       if (!arr2[indexArr2]) {
-        addToMerged(arr1[indexArr1]);
+        merged.push(arr1[indexArr1]);
         indexArr1++;
         numberOfObjects--;
       } else {
@@ -102,8 +103,7 @@ function merger(arr1, arr2) {
 
 console.log(merger(ages, names));
 let arr = [...names, ...ages];
-
-//optional cleaner but way slower using reduce (50% slower)
+//cleaner but way slower using reduce (50% slower)
 function groupById(objectArray) {
   return objectArray.reduce(function (acc, obj, index) {
     let key = obj["id"];
