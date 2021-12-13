@@ -55,7 +55,7 @@ const App: React.FC = () => {
       <main className="container">
         <article>
           <>
-            {!rows && !error && <img alt="" src={loader} />}
+            {!rows && !error && <img alt="loading" src={loader} />}
             {error && (
               <div className="error-message">
                 <h2>Something Went Wrong! Please Try Again</h2>

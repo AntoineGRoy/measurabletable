@@ -4,4 +4,4 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 Please take a look at codesnippet.js then at the src folder.
 
-Please check app.test.js.
+Please check app.test.tsx
