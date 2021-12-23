@@ -1,52 +1,20 @@
 import { RowObject } from "../App";
-export function tableDataMerger(
-  arr1: Array<RowObject>,
-  arr2: Array<RowObject>
-) {
-  //gathering properties names while iterating through the input to fill the table head;
-  let numberOfObjects: number = arr1.length + arr2.length;
-  let indexArr1: number = 0;
-  let indexArr2: number = 0;
-  //main output - merged objects to fill the rows
-  let merged: Array<RowObject> = [];
-  //task is merging identical IDs into one object
-  while (numberOfObjects > 0) {
-    //exit condition
-    if (!arr1[indexArr1] || !arr2[indexArr2]) {
-      console.log("EMPTY");
-      if (!arr2[indexArr2]) {
-        merged.push(arr1[indexArr1]);
-        indexArr1++;
-        numberOfObjects--;
-      } else {
-        merged.push(arr2[indexArr2]);
-        indexArr2++;
-        numberOfObjects--;
-      }
-    } else {
-      //iterating
-      let obj1Id: number = parseInt(arr1[indexArr1].id!);
-      let obj2Id: number = parseInt(arr2[indexArr2].id!);
 
-      if (obj1Id === obj2Id) {
-        //merging objects with identical ID
-        merged.push({ ...arr1[indexArr1], ...arr2[indexArr2] });
-        indexArr2++;
-        indexArr1++;
-        numberOfObjects = numberOfObjects - 2;
-      } else {
-        if (obj1Id < obj2Id) {
-          merged.push(arr1[indexArr1]);
-          indexArr1++;
-          numberOfObjects--;
-        } else {
-          //obj2Id>obj1Id
-          merged.push(arr2[indexArr2]);
-          indexArr2++;
-          numberOfObjects--;
-        }
-      }
+export function tableDataMerger(arr1: any, arr2: any) {
+  let merged = [...arr1, ...arr2];
+  let IDs = new Map();
+
+  merged.forEach((obj) => {
+    if (IDs.has(obj.id)) {
+      IDs.set(obj.id, { ...obj, ...IDs.get(obj.id) });
+    } else {
+      IDs.set(obj.id, { ...obj });
     }
-  }
-  return merged;
+  });
+  let results = Array.from(IDs.values());
+  results.sort(function (a, b) {
+    return a.id - b.id;
+  });
+
+  return results;
 }
