@@ -4,7 +4,6 @@ import loader from "./svg/loader.svg";
 import "./App.css";
 import Table from "./components/Table";
 import { tableDataMerger } from "./utils/tableDataMerger";
-//import { fetchData } from "./utils/fetchTableData";
 
 export interface RowObject {
   id: string;
@@ -12,7 +11,6 @@ export interface RowObject {
   firstname?: string;
   lastName?: string;
 }
-//would come from ENV?
 const BASE_URL: string = "http://5c37c33f7820ff0014d927c5.mockapi.io/msr/";
 
 const App: React.FC = () => {
@@ -20,13 +18,13 @@ const App: React.FC = () => {
   const [error, setError] = React.useState<boolean>(false);
 
   React.useEffect(() => {
+    //defining the fetch function 
     async function fetchItem(item: string) {
       return fetch(`${BASE_URL}${item}`)
         .then((data) => {
           return data.json();
         })
         .catch((e) => {
-          console.log(e);
           setError(true);
         });
     }
@@ -38,7 +36,6 @@ const App: React.FC = () => {
         setRows(merged);
       } catch (err) {
         setError(true);
-        console.log(err);
       }
     })();
   }, []);
